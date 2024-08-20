@@ -1,5 +1,6 @@
 package me.ffis.randomImage.config;
 
+import io.github.pixee.security.BoundedLineReader;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -61,7 +62,7 @@ public class ReadListConfig {
         try {
             bw = new BufferedReader(new FileReader("list/" + listFileName));
             String line;
-            while ((line = bw.readLine())!= null) {
+            while ((line = BoundedLineReader.readLine(bw, 5_000_000))!= null) {
                 listFile.add(line);
             }
         } catch (IOException e) {
